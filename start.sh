@@ -21,13 +21,13 @@ if [ ! -d $DATAPATH/run ]; then
 fi
 
 # Changing password
-if [ ! -f $DATAPATH/.initialized ]; then
+if [ ! -f $SCRIPTPATH/.initialized ]; then
     if [ "$PASSWORD" = "" ]; then
         PASSWORD=`pwgen 10 1`
         echo "Login password is \"$PASSWORD\""
     fi
     echo "$USER:$PASSWORD" | chpasswd
-    sudo -u $USER touch $DATAPATH/.initialized
+    sudo -u $USER touch $SCRIPTPATH/.initialized
 fi
 
 # Generate ssl certrificates
@@ -55,7 +55,7 @@ _trap() {
 }
 trap '_trap' 15
 
-# Starting Web UI
-sudo -u $USER python $SCRIPTPATH/$SERVER -c $CONFIGFILE & PID=$!
+# Starting Supervisor
+supervisord -c /etc/supervisor/supervisord.conf & PID=$!
 
 wait $PID
