@@ -1,0 +1,15 @@
+mineos:
+  image: yujiod/minecraft-mineos
+  volumes:
+    - ./data/minecraft:/var/games/minecraft
+  environment:
+    - PASSWORD=cr33p3r
+  ports:
+    - 2222:22
+    - 8443:8443
+    - 25565:25565
+    - 25566:25566
+    - 25567:25567
+    - 25568:25568
+    - 25569:25569
+    - 25570:25570
