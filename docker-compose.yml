@@ -5,7 +5,6 @@ mineos:
   environment:
     - PASSWORD=cr33p3r
   ports:
-    - 2222:22
     - 8443:8443
     - 25565:25565
     - 25566:25566
