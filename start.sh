@@ -11,13 +11,13 @@ GROUP=minecraft
 # Create does not exists directories
 chown $USER:$GROUP $DATAPATH
 if [ ! -d $DATAPATH/ssl_certs ]; then
-    sudo -u $USER mkdir $DATAPATH/ssl_certs
+    mkdir $DATAPATH/ssl_certs
 fi
 if [ ! -d $DATAPATH/log ]; then
-    sudo -u $USER mkdir $DATAPATH/log
+    mkdir $DATAPATH/log
 fi
 if [ ! -d $DATAPATH/run ]; then
-    sudo -u $USER mkdir $DATAPATH/run
+    mkdir $DATAPATH/run
 fi
 
 # Changing password
@@ -27,13 +27,13 @@ if [ ! -f $SCRIPTPATH/.initialized ]; then
         echo "Login password is \"$PASSWORD\""
     fi
     echo "$USER:$PASSWORD" | chpasswd
-    sudo -u $USER touch $SCRIPTPATH/.initialized
+    touch $SCRIPTPATH/.initialized
 fi
 
 # Generate ssl certrificates
 CERT_DIR=$DATAPATH/ssl_certs
 if [ ! -f "$CERT_DIR/mineos.pem" ]; then
-    sudo -u $USER CERTFILE=$CERT_DIR/mineos.pem CRTFILE=$CERT_DIR/mineos.crt KEYFILE=$CERT_DIR/mineos.key ./generate-sslcert.sh
+    CERTFILE=$CERT_DIR/mineos.pem CRTFILE=$CERT_DIR/mineos.crt KEYFILE=$CERT_DIR/mineos.key ./generate-sslcert.sh
 fi
 
 # Trap function

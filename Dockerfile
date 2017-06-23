@@ -4,11 +4,14 @@ ENV MINEOS_VERSION 1.1.7
 
 # Installing Dependencies
 RUN apt-get update; \
-    apt-get -y install screen nodejs npm rdiff-backup openjdk-8-jre-headless build-essential uuid pwgen curl sudo
+    apt-get -y install git rdiff-backup screen build-essential openjdk-8-jre-headless uuid pwgen curl rsync
+
+# Installing node 4.x
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -; \
+    apt-get -y install nodejs
 
 # Installing MineOS scripts
-RUN ln -s /usr/bin/nodejs /usr/bin/node; \
-    mkdir -p /usr/games /usr/games/minecraft /var/games/minecraft; \
+RUN mkdir -p /usr/games/minecraft /var/games/minecraft; \
     curl -L https://github.com/hexparrot/mineos-node/archive/v${MINEOS_VERSION}.tar.gz | tar xz -C /usr/games/minecraft --strip=1; \
     cd /usr/games/minecraft; \
     npm install; \
@@ -23,11 +26,12 @@ ADD start.sh /usr/games/minecraft/start.sh
 RUN chmod +x /usr/games/minecraft/start.sh
 
 # Add minecraft user and change owner files.
-RUN useradd -s /bin/bash -d /usr/games/minecraft -m minecraft; \
-    chown -R minecraft:minecraft /usr/games/minecraft /var/games/minecraft
+RUN useradd -M -s /bin/bash -d /usr/games/minecraft minecraft
 
 # Cleaning
-RUN apt-get clean
+RUN apt-get -y remove build-essential; \
+    apt -y autoremove; \
+    apt-get clean
 
 VOLUME /var/games/minecraft
 WORKDIR /usr/games/minecraft
