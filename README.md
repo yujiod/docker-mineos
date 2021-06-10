@@ -1,6 +1,6 @@
 # minecraft-mineos
 
-Dockerfile for creating Mine OS server image with Java 8.
+Dockerfile for creating Mine OS server image with Java 16.
 
 [Mine OS - easy minecraft hosting solution](http://minecraft.codeemo.com/)
 

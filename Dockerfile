@@ -1,10 +1,11 @@
-FROM ubuntu:xenial
+FROM ubuntu:impish
 MAINTAINER Yuji ODA
 ENV MINEOS_VERSION 1.1.7
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Installing Dependencies
 RUN apt-get update; \
-    apt-get -y install git rdiff-backup screen build-essential openjdk-8-jre-headless uuid pwgen curl rsync
+    apt-get -y install git rdiff-backup screen build-essential openjdk-16-jre-headless uuid pwgen curl rsync
 
 # Installing node 4.x
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -; \
