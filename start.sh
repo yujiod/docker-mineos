@@ -50,6 +50,6 @@ _trap() {
 trap '_trap' 15
 
 # Starting mineos
-/usr/bin/node webui.js & PID=$!
+/root/.nvm/versions/node/v8.17.0/bin/node webui.js & PID=$!
 
 wait $PID
